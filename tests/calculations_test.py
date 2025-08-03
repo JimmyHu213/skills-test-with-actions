@@ -6,7 +6,8 @@ import os
 # None
 
 # Project Modules
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+sys.path.insert(0, os.path.abspath(
+    os.path.join(os.path.dirname(__file__), '../src')))
 from calculations import area_of_circle, get_nth_fibonacci   # noqa: E402
 
 
@@ -34,6 +35,19 @@ def test_area_of_circle_zero_radius():
     assert result == 0
 
 
+def test_area_of_circle_negative_radius():
+    """Test with a negative radius to raise ValueError."""
+    # Arrange
+    radius = -1
+
+    # Act & Assert
+    try:
+        area_of_circle(radius)
+        assert False, "ValueError not raised for negative radius"
+    except ValueError:
+        pass
+
+
 def test_get_nth_fibonacci_zero():
     """Test with n=0."""
     # Arrange
@@ -58,13 +72,26 @@ def test_get_nth_fibonacci_one():
     assert result == 1
 
 
-# def test_get_nth_fibonacci_ten():
-#     """Test with n=10."""
-#     # Arrange
-#     n = 10
+def test_get_nth_fibonacci_ten():
+    """Test with n=10."""
+    # Arrange
+    n = 10
 
-#     # Act
-#     result = get_nth_fibonacci(n)
+    # Act
+    result = get_nth_fibonacci(n)
 
-#     # Assert
-#     assert result == 89
+    # Assert
+    assert result == 55
+
+
+def test_get_nth_fibonacci_negative():
+    """Test with a negative number to raise ValueError."""
+    # Arrange
+    n = -1
+
+    # Act & Assert
+    try:
+        get_nth_fibonacci(n)
+        assert False, "ValueError not raised for negative n"
+    except ValueError:
+        pass
